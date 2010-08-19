@@ -41,14 +41,35 @@
 # a.html
 # => "html!"
 #
+require "nokogiri"
+
 class ArpiGemBuilder
 
-  def initialize(html)
-    @html = html
+  class NoServiceName < StandardError; end;
+
+  def initialize(raw_html)
+    @raw_html = raw_html
   end
 
   def generate(save_to)
     @save_to = save_to
+  end
+
+  def service_name
+    @service_name ||= begin
+      div = html.css("div[name=service] div[name=meta-info] div[name=service_name]")
+
+      div.empty? ? (raise NoServiceName.new("No service name, read the specs at...")) : div.text.downcase
+    end
+  end
+
+  private
+
+  def build_structure
+  end
+
+  def html
+    @html ||= Nokogiri::HTML.parse(@raw_html)
   end
 
 end
