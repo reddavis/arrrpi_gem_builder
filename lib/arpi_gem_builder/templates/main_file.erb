@@ -1,0 +1,13 @@
+require 'httparty'
+
+class <%= @gem_name %>
+  include HTTParty
+
+  class << self
+    <% @methods.each do |method| %>
+      def <%= method.name %>
+
+      end
+    <% end %>
+  end
+end

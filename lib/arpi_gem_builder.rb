@@ -56,6 +56,11 @@ class ArpiGemBuilder
 
     # First lets use jeweler to build the structure
     build_structure
+
+    # Write the main file
+    write_main_file
+
+    #write_tests
   end
 
   def service_name
@@ -70,6 +75,9 @@ class ArpiGemBuilder
 
   def build_structure
     %x{ cd #{@save_to} && jeweler #{service_name} }
+  end
+
+  def write_main_file
   end
 
   def html
