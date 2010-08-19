@@ -35,7 +35,7 @@
 #
 # So in theory we will be able to:
 #
-# require 'embed'
+# require 'embedit'
 #
 # a = Embedit.get_embed_code(:url => "http://youtube.com")
 # a.html
