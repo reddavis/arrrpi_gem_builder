@@ -66,6 +66,7 @@ class ArpiGemBuilder
   private
 
   def build_structure
+    %x{ cd #{@save_to} && jeweler #{service_name} }
   end
 
   def html
