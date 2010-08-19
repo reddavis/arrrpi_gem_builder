@@ -53,6 +53,9 @@ class ArpiGemBuilder
 
   def generate(save_to)
     @save_to = save_to
+
+    # First lets use jeweler to build the structure
+    build_structure
   end
 
   def service_name
