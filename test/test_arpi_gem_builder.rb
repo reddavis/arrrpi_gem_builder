@@ -1,6 +1,8 @@
 require 'helper'
 
 class TestArpiGemBuilder < Test::Unit::TestCase
+  include WebMock
+
   context "Extracting information from the html" do
     setup do
       html = File.read(File.expand_path(File.dirname(__FILE__) + "/test_data/embedit_api.html"))
@@ -27,12 +29,25 @@ class TestArpiGemBuilder < Test::Unit::TestCase
 
       @dir = File.expand_path(File.dirname(__FILE__) + "/test_data")
       @builder = ArpiGemBuilder.new(html)
+      @builder.generate(@dir)
     end
 
     should "create a directory called embedit" do
-      @builder.generate(@dir)
-
       assert File.directory?("#{@dir}/embedit")
+    end
+
+    context "Using the generated gem" do
+      setup do
+        # Require the generated lib
+        require "#{@dir}/embedit/lib/embedit"
+        stub_request(:any, /embedit.me/)
+      end
+
+      should "call http://embedit.me/get_embed_code" do
+        Embedit.get_embed_code
+
+        assert_requested(:get, /http:\/\/embedit.me\/get_embed_code/, :times => 1)
+      end
     end
   end
 end
