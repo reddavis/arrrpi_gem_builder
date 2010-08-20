@@ -1,3 +1,6 @@
+require "erb"
+require "arpi_gem_builder/method_builder"
+
 module ArpiGemBuilder
   class BaseFileGenerator
 
@@ -7,8 +10,12 @@ module ArpiGemBuilder
       @methods = MethodBuilder.extract(html)
     end
 
-    def generate
+    def generate(generate_path)
       erb = ERB.new(File.read(base_template_path))
+
+      File.open(generate_path, "w+") do |file|
+        file.write(erb.result(binding))
+      end
     end
 
     private
