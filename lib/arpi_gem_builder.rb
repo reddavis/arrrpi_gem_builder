@@ -43,45 +43,51 @@
 #
 require "nokogiri"
 
-class ArpiGemBuilder
+$:.unshift(File.expand_path(File.dirname(__FILE__)))
+require "arpi_gem_builder/base_file_generator"
 
-  class NoServiceName < StandardError; end;
+module ArpiGemBuilder
+  class Generator
 
-  def initialize(raw_html)
-    @raw_html = raw_html
-  end
+    class NoServiceName < StandardError; end;
 
-  def generate(save_to)
-    @save_to = save_to
-
-    # First lets use jeweler to build the structure
-    build_structure
-
-    # Write the main file
-    write_main_file
-
-    #write_tests
-  end
-
-  def service_name
-    @service_name ||= begin
-      div = html.css("div[name=service] div[name=meta-info] div[name=service_name]")
-
-      div.empty? ? (raise NoServiceName.new("No service name, read the specs at...")) : div.text.downcase
+    def initialize(raw_html)
+      @raw_html = raw_html
     end
+
+    def generate(save_to)
+      @save_to = save_to
+
+      # First lets use jeweler to build the structure
+      build_structure
+
+      # Write the base file
+      BaseFileGenerator.new(gem_name, html).generate
+
+      #write_tests
+    end
+
+    def service_name
+      @service_name ||= begin
+        div = html.css("div[name=service] div[name=meta-info] div[name=service_name]")
+
+        div.empty? ? (raise NoServiceName.new("No service name, read the specs at...")) : div.text.downcase
+      end
+    end
+
+    def gem_name
+      service_name.split(" ").map {|x| x.capitalize }.join
+    end
+
+    private
+
+    def build_structure
+      %x{ cd #{@save_to} && jeweler #{service_name} }
+    end
+
+    def html
+      @html ||= Nokogiri::HTML.parse(@raw_html)
+    end
+
   end
-
-  private
-
-  def build_structure
-    %x{ cd #{@save_to} && jeweler #{service_name} }
-  end
-
-  def write_main_file
-  end
-
-  def html
-    @html ||= Nokogiri::HTML.parse(@raw_html)
-  end
-
 end
