@@ -12,8 +12,8 @@ require 'arpi_gem_builder'
 class Test::Unit::TestCase
   # Empty the test_data folder (apart from the html)
   def teardown
-    Dir.glob("#{File.expand_path(File.dirname(__FILE__))}/test_data/**").each do |folder_path|
-      FileUtils.rm_rf(folder_path) if File.directory?(folder_path)
+    Dir.glob("#{File.expand_path(File.dirname(__FILE__))}/test_data/**").each do |file_path|
+      FileUtils.rm_rf(file_path)
     end
   end
 end

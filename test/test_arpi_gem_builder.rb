@@ -5,7 +5,7 @@ class TestArpiGemBuilder < Test::Unit::TestCase
 
   context "Extracting information from the html" do
     setup do
-      html = File.read(File.expand_path(File.dirname(__FILE__) + "/test_data/embedit_api.html"))
+      html = File.read(File.expand_path(File.dirname(__FILE__) + "/html_sample/embedit_api.html"))
       @builder = ArpiGemBuilder::Generator.new(html)
     end
 
@@ -40,7 +40,7 @@ class TestArpiGemBuilder < Test::Unit::TestCase
 
   context "Generation" do
     setup do
-      html = File.read(File.expand_path(File.dirname(__FILE__) + "/test_data/embedit_api.html"))
+      html = File.read(File.expand_path(File.dirname(__FILE__) + "/html_sample/embedit_api.html"))
 
       @dir = File.expand_path(File.dirname(__FILE__) + "/test_data")
       @builder = ArpiGemBuilder::Generator.new(html)
