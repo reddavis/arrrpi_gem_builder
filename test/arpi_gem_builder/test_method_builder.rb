@@ -11,12 +11,12 @@ class TestMethodBuilder < Test::Unit::TestCase
       should "return get_embed_code" do
         assert_equal "get_embed_code", @method.name
       end
+    end
 
-      context "No name" do
-        should "raise a NoMethodName error" do
-          method = ArpiGemBuilder::MethodBuilder.new(empty_html)
-          assert_raise(ArpiGemBuilder::MethodBuilder::NoMethodName) { method.name }
-        end
+    context "No name" do
+      should "raise a NoMethodName" do
+        method = ArpiGemBuilder::MethodBuilder.new("")
+        assert_raise(ArpiGemBuilder::MethodBuilder::NoMethodName) { method.name }
       end
     end
   end
@@ -40,7 +40,7 @@ class TestMethodBuilder < Test::Unit::TestCase
   end
 
   def html_one_method
-    Nokogiri::HTML.parse(%{
+    %{
       <div name="operation">
         <p>
            The operation <label class="label">get_embed_code</label> is invoked using the method <span class="method">GET</span> at <label class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
@@ -54,11 +54,11 @@ class TestMethodBuilder < Test::Unit::TestCase
           It returns the embed details in <span class="output">JSON</span> document.
         </p>
       </div>
-    })
+    }
   end
 
   def html_multi_methods
-    Nokogiri::HTML.parse(%{
+    %{
       <div name="operation">
         <p>
            The operation <label class="label">one</label> is invoked using the method <span class="method">GET</span> at <label class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
@@ -100,6 +100,6 @@ class TestMethodBuilder < Test::Unit::TestCase
           It returns the embed details in <span class="output">JSON</span> document.
         </p>
       </div>
-    })
+    }
   end
 end

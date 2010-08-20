@@ -4,21 +4,21 @@ module ArpiGemBuilder
     class NoMethodName < StandardError; end;
 
     class << self
-      def extract(noko_html)
-        noko_html.css("div[name=operation]").map do |operation|
-          new(operation)
+      def extract(html)
+        Nokogiri::HTML.parse(html).css("div[name=operation]").map do |operation|
+          new(operation.to_s)
         end
       end
     end
 
-    def initialize(noko_html)
-      @noko_html = noko_html
+    def initialize(html)
+      @html = Nokogiri::HTML.parse(html)
     end
 
     def name
       @name ||= begin
-        div = @noko_html.css("div[name=operation] label.label")
-        div.empty? ? (raise NoMethodName.new("You need to read the specs!")) : div.text
+        div = @html.css("div[name=operation] label.label")
+        div.empty? ? (raise NoMethodName) : div.text
       end
     end
 

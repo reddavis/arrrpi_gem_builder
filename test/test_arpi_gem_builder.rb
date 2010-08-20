@@ -55,13 +55,10 @@ class TestArpiGemBuilder < Test::Unit::TestCase
       setup do
         # Require the generated lib
         require "#{@dir}/embedit/lib/embedit"
-        stub_request(:any, /embedit.me/)
       end
 
-      should "call http://embedit.me/get_embed_code" do
-        Embedit.get_embed_code
-
-        assert_requested(:get, /http:\/\/embedit.me\/get_embed_code/, :times => 1)
+      should "respond to get_embed_code" do
+        assert Embedit.respond_to?(:get_embed_code)
       end
     end
   end

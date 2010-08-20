@@ -62,7 +62,7 @@ module ArpiGemBuilder
       build_structure
 
       # Write the base file
-      BaseFileGenerator.new(gem_name, html).generate(base_file_path)
+      BaseFileGenerator.new(gem_name, @raw_html).generate(base_file_path)
 
       #write_tests
     end
@@ -82,7 +82,7 @@ module ArpiGemBuilder
     private
 
     def base_file_path
-      "#{@save_to}/lib/#{base_file_name}.rb"
+      "#{@save_to}/#{service_name}/lib/#{base_file_name}.rb"
     end
 
     def base_file_name
