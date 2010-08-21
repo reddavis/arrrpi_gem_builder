@@ -35,10 +35,6 @@ class TestMethodBuilder < Test::Unit::TestCase
 
   private
 
-  def empty_html
-    Nokogiri::HTML.parse("")
-  end
-
   def html_one_method
     %{
       <div name="operation">
