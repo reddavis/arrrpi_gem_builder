@@ -46,8 +46,9 @@ module ArpiGemBuilder
 
     def ruby
       %{
-        def #{name}(query = {})
-          #{http_method.downcase} "#{address}", :query => query
+        def #{name}(query_option = {})
+          query = query_option.empty? ? {} : {:query => query_option}
+          #{http_method.downcase} "#{address}", query
         end
       }
     end
