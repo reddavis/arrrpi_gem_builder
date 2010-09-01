@@ -38,6 +38,12 @@ module ArpiGemBuilder
       end
     end
 
+    def inputs
+      @inputs ||= begin
+        @html.css("div[name=operation] span.input").map {|input| input.text }
+      end
+    end
+
     def ruby
       %{
         def #{name}

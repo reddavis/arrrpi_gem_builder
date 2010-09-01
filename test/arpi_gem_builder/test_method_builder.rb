@@ -54,6 +54,16 @@ class TestMethodBuilder < Test::Unit::TestCase
         end
       end
     end
+
+    context "Inputs" do
+      should "return an array" do
+        assert_kind_of Array, @method.inputs
+      end
+
+      should "include url input" do
+        assert @method.inputs.include?("url")
+      end
+    end
   end
 
   context "Extracting multiple methods" do
