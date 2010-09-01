@@ -41,6 +41,19 @@ class TestMethodBuilder < Test::Unit::TestCase
         end
       end
     end
+
+    context "URL Address" do
+      should "be /urls/embed" do
+        assert_equal "/urls/embed", @method.address
+      end
+
+      context "No Address" do
+        should "raise NoAddress" do
+          method = ArpiGemBuilder::MethodBuilder.new("")
+          assert_raise(ArpiGemBuilder::MethodBuilder::NoAddress) { method.address }
+        end
+      end
+    end
   end
 
   context "Extracting multiple methods" do
@@ -61,7 +74,7 @@ class TestMethodBuilder < Test::Unit::TestCase
     %{
       <div name="operation">
         <p>
-           The operation <label class="label">get_embed_code</label> is invoked using the method <span class="method">GET</span> at <label class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
+           The operation <label class="label">get_embed_code</label> is invoked using the method <span class="method">GET</span> at <code class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
         </p>
 
         <p>
@@ -79,7 +92,7 @@ class TestMethodBuilder < Test::Unit::TestCase
     %{
       <div name="operation">
         <p>
-           The operation <label class="label">one</label> is invoked using the method <span class="method">GET</span> at <label class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
+           The operation <label class="label">one</label> is invoked using the method <span class="method">GET</span> at <code class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
         </p>
 
         <p>
@@ -93,7 +106,7 @@ class TestMethodBuilder < Test::Unit::TestCase
 
       <div name="operation">
         <p>
-           The operation <label class="label">two</label> is invoked using the method <span class="method">GET</span> at <label class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
+           The operation <label class="label">two</label> is invoked using the method <span class="method">GET</span> at <code class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
         </p>
 
         <p>
@@ -107,7 +120,7 @@ class TestMethodBuilder < Test::Unit::TestCase
 
       <div name="operation">
         <p>
-           The operation <label class="label">three</label> is invoked using the method <span class="method">GET</span> at <label class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
+           The operation <label class="label">three</label> is invoked using the method <span class="method">GET</span> at <code class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
         </p>
 
         <p>
