@@ -50,6 +50,7 @@ module ArpiGemBuilder
   class Generator
 
     class NoServiceName < StandardError; end;
+    class NoBaseURL     < StandardError; end;
 
     def initialize(raw_html)
       @raw_html = raw_html
@@ -62,21 +63,29 @@ module ArpiGemBuilder
       build_structure
 
       # Write the base file
-      BaseFileGenerator.new(gem_name, @raw_html).generate(base_file_path)
+      BaseFileGenerator.new(gem_name, base_url, @raw_html).generate(base_file_path)
 
       #write_tests
     end
 
     def service_name
       @service_name ||= begin
-        div = html.css("div[name=service] div[name=meta-info] div[name=service_name]")
+        x = html.css("div[name=service] div[name=meta-info] div[name=service_name]")
 
-        div.empty? ? (raise NoServiceName.new("No service name, read the specs at...")) : div.text.downcase
+        x.empty? ? (raise NoServiceName.new("No service name, read the specs at...")) : x.text.downcase
       end
     end
 
     def gem_name
       service_name.split(" ").map {|x| x.capitalize }.join
+    end
+
+    def base_url
+      @base_url ||= begin
+        x = html.css("div[name=service] div[name=meta-info] div[name=base_url]")
+
+        x.empty? ? (raise NoBaseURL) : x.text.downcase
+      end
     end
 
     private

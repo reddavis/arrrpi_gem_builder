@@ -36,6 +36,19 @@ class TestArpiGemBuilder < Test::Unit::TestCase
         end
       end
     end
+
+    context "Base URL" do
+      should "return http://embedit.me" do
+        assert_equal "http://embedit.me", @builder.base_url
+      end
+
+      context "No Base URL" do
+        should "raise a NoBaseURL error" do
+          builder = ArpiGemBuilder::Generator.new("")
+          assert_raise(ArpiGemBuilder::Generator::NoBaseURL) { builder.base_url }
+        end
+      end
+    end
   end
 
   context "Generation" do
@@ -57,8 +70,13 @@ class TestArpiGemBuilder < Test::Unit::TestCase
         require "#{@dir}/embedit/lib/embedit"
       end
 
-      should "respond to get_embed_code" do
-        assert Embedit.respond_to?(:get_embed_code)
+      context "Basic GET" do
+        should "GET /urls/embed" do
+          stub_request(:get, "http://embedit.me/urls/embed")
+          Embedit.get_embed_code
+
+          assert_requested :get, "http://embedit.me/urls/embed"
+        end
       end
     end
   end

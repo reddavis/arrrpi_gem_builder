@@ -4,9 +4,10 @@ require "arpi_gem_builder/method_builder"
 module ArpiGemBuilder
   class BaseFileGenerator
 
-    def initialize(gem_name, html)
+    def initialize(gem_name, base_url, html)
       @html = html
       @gem_name = gem_name
+      @base_url = base_url
       @methods = MethodBuilder.extract(html)
     end
 

@@ -1,7 +1,8 @@
-require 'httparty'
+require "httparty"
 
 class <%= @gem_name %>
   include HTTParty
+  base_uri "<%= @base_url %>"
 
   class << self
     <% @methods.each do |method| %>
