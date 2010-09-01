@@ -22,5 +22,13 @@ module ArpiGemBuilder
       end
     end
 
+    def ruby
+      %{
+        def #{name}
+
+        end
+      }
+    end
+
   end
 end

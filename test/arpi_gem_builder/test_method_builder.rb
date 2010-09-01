@@ -11,12 +11,21 @@ class TestMethodBuilder < Test::Unit::TestCase
       should "return get_embed_code" do
         assert_equal "get_embed_code", @method.name
       end
+
+      context "No name" do
+        should "raise a NoMethodName" do
+          method = ArpiGemBuilder::MethodBuilder.new("")
+          assert_raise(ArpiGemBuilder::MethodBuilder::NoMethodName) { method.name }
+        end
+      end
     end
 
-    context "No name" do
-      should "raise a NoMethodName" do
-        method = ArpiGemBuilder::MethodBuilder.new("")
-        assert_raise(ArpiGemBuilder::MethodBuilder::NoMethodName) { method.name }
+    context "Ruby method" do
+      should "create a working method" do
+        class Test; end;
+        Test.send(:class_eval, @method.ruby)
+
+        assert Test.new.respond_to?(@method.name.to_sym)
       end
     end
   end

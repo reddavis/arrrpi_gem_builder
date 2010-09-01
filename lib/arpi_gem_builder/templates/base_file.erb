@@ -5,9 +5,7 @@ class <%= @gem_name %>
 
   class << self
     <% @methods.each do |method| %>
-      def <%= method.name %>
-
-      end
+      <%= method.ruby %>
     <% end %>
   end
 end
