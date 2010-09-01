@@ -2,6 +2,7 @@ module ArpiGemBuilder
   class MethodBuilder
 
     class NoMethodName < StandardError; end;
+    class NoHTTPMethod < StandardError; end;
 
     class << self
       def extract(html)
@@ -17,8 +18,15 @@ module ArpiGemBuilder
 
     def name
       @name ||= begin
-        div = @html.css("div[name=operation] label.label")
-        div.empty? ? (raise NoMethodName) : div.text
+        x = @html.css("div[name=operation] label.label")
+        x.empty? ? (raise NoMethodName) : x.text
+      end
+    end
+
+    def http_method
+      @http_method ||= begin
+        x = @html.css("div[name=operation] span.method")
+        x.empty? ? (raise NoHTTPMethod) : x.text.upcase
       end
     end
 

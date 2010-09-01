@@ -28,6 +28,19 @@ class TestMethodBuilder < Test::Unit::TestCase
         assert Test.new.respond_to?(@method.name.to_sym)
       end
     end
+
+    context "HTTP Method" do
+      should "be a GET" do
+        assert_equal "GET", @method.http_method
+      end
+
+      context "No HTTP Method set" do
+        should "raise NoHTTPMethod" do
+          method = ArpiGemBuilder::MethodBuilder.new("")
+          assert_raise(ArpiGemBuilder::MethodBuilder::NoHTTPMethod) { method.http_method }
+        end
+      end
+    end
   end
 
   context "Extracting multiple methods" do
