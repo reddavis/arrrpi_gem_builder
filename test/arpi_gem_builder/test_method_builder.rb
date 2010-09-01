@@ -44,19 +44,28 @@ class TestMethodBuilder < Test::Unit::TestCase
 
       context "GET requests" do
         should "make a request" do
-          stub_request(:get, "http://arrrpi.com/urls/embed")
+          stub_request(:get, "http://arrrpi.com/urls/embed?")
           Test.get_embed_code
 
-          assert_requested :get, "http://arrrpi.com/urls/embed"
+          assert_requested :get, "http://arrrpi.com/urls/embed?"
+        end
+
+        context "With Query parameters" do
+          should "make a request" do
+            stub_request(:get, "http://arrrpi.com/urls/embed?url=blah")
+            Test.get_embed_code(:url => "blah")
+
+            assert_requested :get, "http://arrrpi.com/urls/embed?url=blah"
+          end
         end
       end
 
       context "POST requests" do
         should "make a request" do
-          stub_request(:post, "http://arrrpi.com/urls/embed")
+          stub_request(:post, "http://arrrpi.com/urls/embed?")
           Test.post_embed_code
 
-          assert_requested :post, "http://arrrpi.com/urls/embed"
+          assert_requested :post, "http://arrrpi.com/urls/embed?"
         end
       end
     end

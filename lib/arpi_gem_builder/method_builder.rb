@@ -46,8 +46,8 @@ module ArpiGemBuilder
 
     def ruby
       %{
-        def #{name}
-          #{http_method.downcase} "#{address}"
+        def #{name}(query = {})
+          #{http_method.downcase} "#{address}", :query => query
         end
       }
     end
