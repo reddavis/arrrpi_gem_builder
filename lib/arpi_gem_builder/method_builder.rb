@@ -47,7 +47,7 @@ module ArpiGemBuilder
     def ruby
       %{
         def #{name}
-
+          #{http_method.downcase} "#{address}"
         end
       }
     end

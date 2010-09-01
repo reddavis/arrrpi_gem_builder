@@ -1,7 +1,10 @@
 require 'helper'
+require 'httparty'
 require 'arpi_gem_builder/method_builder'
 
 class TestMethodBuilder < Test::Unit::TestCase
+  include WebMock
+
   context "One method" do
     setup do
       @method = ArpiGemBuilder::MethodBuilder.new(html_one_method)
@@ -21,11 +24,27 @@ class TestMethodBuilder < Test::Unit::TestCase
     end
 
     context "Ruby method" do
-      should "create a working method" do
-        class Test; end;
-        Test.send(:class_eval, @method.ruby)
+      setup do
+        # Dummy class
+        class Test
+          include ::HTTParty
+          base_uri "arrrpi.com"
+        end
 
-        assert Test.new.respond_to?(@method.name.to_sym)
+        Test.send(:instance_eval, @method.ruby)
+      end
+
+      should "create an actual method" do
+        assert Test.respond_to?(@method.name.to_sym)
+      end
+
+      context "GET requests" do
+        should "make a request" do
+          stub_request(:get, "http://arrrpi.com/urls/embed")
+          Test.get_embed_code
+
+          assert_requested :get, "http://arrrpi.com/urls/embed"
+        end
       end
     end
 
