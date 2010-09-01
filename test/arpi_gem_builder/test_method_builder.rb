@@ -7,7 +7,7 @@ class TestMethodBuilder < Test::Unit::TestCase
 
   context "One method" do
     setup do
-      @method = ArpiGemBuilder::MethodBuilder.new(html_one_method)
+      @method = ArpiGemBuilder::MethodBuilder.new(html_get_method)
     end
 
     context "Name" do
@@ -31,7 +31,11 @@ class TestMethodBuilder < Test::Unit::TestCase
           base_uri "arrrpi.com"
         end
 
-        Test.send(:instance_eval, @method.ruby)
+        # GET request
+        Test.send(:instance_eval, ArpiGemBuilder::MethodBuilder.new(html_get_method).ruby)
+
+        # POST request
+        Test.send(:instance_eval, ArpiGemBuilder::MethodBuilder.new(html_post_method).ruby)
       end
 
       should "create an actual method" do
@@ -44,6 +48,15 @@ class TestMethodBuilder < Test::Unit::TestCase
           Test.get_embed_code
 
           assert_requested :get, "http://arrrpi.com/urls/embed"
+        end
+      end
+
+      context "POST requests" do
+        should "make a request" do
+          stub_request(:post, "http://arrrpi.com/urls/embed")
+          Test.post_embed_code
+
+          assert_requested :post, "http://arrrpi.com/urls/embed"
         end
       end
     end
@@ -99,11 +112,29 @@ class TestMethodBuilder < Test::Unit::TestCase
 
   private
 
-  def html_one_method
+  def html_get_method
     %{
       <div name="operation">
         <p>
            The operation <label class="label">get_embed_code</label> is invoked using the method <span class="method">GET</span> at <code class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
+        </p>
+
+        <p>
+          The operation <span class='authentification'>does not</span> require any authentification.
+        </p>
+
+        <p>
+          It returns the embed details in <span class="output">JSON</span> document.
+        </p>
+      </div>
+    }
+  end
+
+  def html_post_method
+    %{
+      <div name="operation">
+        <p>
+           The operation <label class="label">post_embed_code</label> is invoked using the method <span class="method">POST</span> at <code class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
         </p>
 
         <p>
