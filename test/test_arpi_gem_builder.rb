@@ -5,7 +5,7 @@ class TestArpiGemBuilder < Test::Unit::TestCase
 
   context "Extracting information from the html" do
     setup do
-      html = File.read(File.expand_path(File.dirname(__FILE__) + "/html_sample/embedit_api.html"))
+      html = fixture("embedit_api.html")
       @builder = ArpiGemBuilder::Generator.new(html)
     end
 
@@ -53,7 +53,7 @@ class TestArpiGemBuilder < Test::Unit::TestCase
 
   context "Generation" do
     setup do
-      html = File.read(File.expand_path(File.dirname(__FILE__) + "/html_sample/embedit_api.html"))
+      html = fixture("embedit_api.html")
 
       @dir = File.expand_path(File.dirname(__FILE__) + "/test_data")
       @builder = ArpiGemBuilder::Generator.new(html)
@@ -73,7 +73,7 @@ class TestArpiGemBuilder < Test::Unit::TestCase
       context "Basic GET" do
         should "GET /urls/embed" do
           stub_request(:get, "http://embedit.me/urls/embed")
-          Embedit.get_embed_code
+          Embedit::Urls.get_embed_code
 
           assert_requested :get, "http://embedit.me/urls/embed"
         end

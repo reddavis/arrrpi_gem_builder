@@ -1,0 +1,8 @@
+require "httparty"
+
+module <%= @gem_name %>
+  class BaseHTTP
+    include HTTParty
+    base_uri "<%= @base_url %>"
+  end
+end

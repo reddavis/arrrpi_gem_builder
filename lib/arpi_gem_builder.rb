@@ -42,9 +42,12 @@
 # => "html!"
 #
 require "nokogiri"
+require "erb"
 
 $:.unshift(File.expand_path(File.dirname(__FILE__)))
-require "arpi_gem_builder/base_file_generator"
+require "arpi_gem_builder/base_lib_file"
+require "arpi_gem_builder/base_http_file"
+require "arpi_gem_builder/http_resource_file"
 
 module ArpiGemBuilder
   class Generator
@@ -61,9 +64,19 @@ module ArpiGemBuilder
 
       # First lets use jeweler to build the structure
       build_structure
+      FileUtils.mkdir_p(resources_file_path)
 
-      # Write the base file
-      BaseFileGenerator.new(gem_name, base_url, @raw_html).generate(base_file_path)
+      # Write the base HTTP file, the resources files inherit off this
+      BaseHTTPFile.new(base_url, gem_name).generate(resources_file_path)
+
+      # Write the resource files
+      resources = HTTPResourceFile.extract_and_build(@raw_html, gem_name)
+      resources.each {|resource| resource.generate(resources_file_path) }
+
+      # Write the base lib file
+      base_lib = BaseLibFile.new(gem_name, base_url)
+      base_lib.resources = resources
+      base_lib.generate(root_file_path, base_file_name)
 
       #write_tests
     end
@@ -90,8 +103,12 @@ module ArpiGemBuilder
 
     private
 
-    def base_file_path
-      "#{@save_to}/#{service_name}/lib/#{base_file_name}.rb"
+    def root_file_path
+      "#{@save_to}/#{service_name}/lib"
+    end
+
+    def resources_file_path
+      "#{@save_to}/#{service_name}/lib/#{base_file_name}"
     end
 
     def base_file_name
@@ -99,7 +116,7 @@ module ArpiGemBuilder
     end
 
     def build_structure
-      %x{ cd #{@save_to} && jeweler #{service_name} }
+      %x{ cd #{@save_to} && jeweler #{base_file_name} }
     end
 
     def html

@@ -1,0 +1,9 @@
+module <%= @gem_name %>
+  class <%= name.capitalize %> < BaseHTTP
+    class << self
+      <% @methods.each do |method| %>
+        <%= method.ruby %>
+      <% end %>
+    end
+  end
+end

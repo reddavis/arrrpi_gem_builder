@@ -1,0 +1,11 @@
+require "httparty"
+
+$:.unshift(File.expand_path(File.dirname(__FILE__)))
+
+# Base HTTP file
+require "<%= "#{@file_name}/base_http" %>"
+
+# Resources
+<% @resources.each do |resource| %>
+require "<%= "#{@file_name}/#{resource.file_name}" %>"
+<% end %>

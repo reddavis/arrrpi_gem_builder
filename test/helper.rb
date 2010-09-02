@@ -10,6 +10,10 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'arpi_gem_builder'
 
 class Test::Unit::TestCase
+  def fixture(file_name)
+    File.read(File.expand_path(File.dirname(__FILE__) + "/fixtures/#{file_name}"))
+  end
+
   # Empty the test_data folder (apart from the html)
   def teardown
     Dir.glob("#{File.expand_path(File.dirname(__FILE__))}/test_data/**").each do |file_path|
