@@ -25,10 +25,10 @@ At the moment everything is very experiment. For the time being the most up to d
 
 The base of the wrappers are built with Jeweler[http://github.com/technicalpickles/jeweler] so you can cd into the base directory and run
 
-	rake gem build
-	rake gem install
-	rake release
-	etc... run rake -T for a full list
+  rake gem build
+  rake gem install
+  rake release
+  etc... run rake -T for a full list
 
 == TODO
 
