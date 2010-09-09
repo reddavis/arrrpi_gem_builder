@@ -23,7 +23,7 @@ At the moment everything is very experiment. For the time being the most up to d
 	Embedit::Urls.get_embed_code("http://www.youtube.com/watch?v=_OBlgSz8sSM")
 		#=> some JSON
 
-The base of the wrappers are built with Jeweler:http://github.com/technicalpickles/jeweler so you can cd into the base directory and run
+The base of the wrappers are built with Jeweler:"http://github.com/technicalpickles/jeweler" so you can cd into the base directory and run
 
 	rake gem build
 	rake gem install
