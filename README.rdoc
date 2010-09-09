@@ -8,20 +8,20 @@ At the moment everything is very experiment. For the time being the most up to d
 
 == Example
 
-	# Grab the HTML
-	html = File.read("embedit_api.html")
+  # Grab the HTML
+  html = File.read("embedit_api.html")
 
-	# Where we want to write our wrapper to
-	gem_dir = "gem/file"
+  # Where we want to write our wrapper to
+  gem_dir = "gem/file"
 
-	# Build the gem
-	ArpiGemBuilder::Generator.new(html).generate(gem_dir)
+  # Build the gem
+  ArpiGemBuilder::Generator.new(html).generate(gem_dir)
 
-	# Lets use our new wrapper...
-	require "gem/file/embedit/lib/embedit"
+  # Lets use our new wrapper...
+  require "gem/file/embedit/lib/embedit"
 
-	Embedit::Urls.get_embed_code("http://www.youtube.com/watch?v=_OBlgSz8sSM")
-		#=> some JSON
+  Embedit::Urls.get_embed_code("http://www.youtube.com/watch?v=_OBlgSz8sSM")
+    #=> some JSON
 
 The base of the wrappers are built with Jeweler[http://github.com/technicalpickles/jeweler] so you can cd into the base directory and run
 
