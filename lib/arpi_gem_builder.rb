@@ -43,6 +43,7 @@
 #
 require "nokogiri"
 require "erb"
+require "FileUtils" unless defined?(FileUtils)
 
 $:.unshift(File.expand_path(File.dirname(__FILE__)))
 require "arpi_gem_builder/base_lib_file"
