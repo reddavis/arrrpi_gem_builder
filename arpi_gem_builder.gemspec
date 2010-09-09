@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "arpi_gem_builder.gemspec",
      "example/play_documentation.html",
      "lib/arpi_gem_builder.rb",
      "lib/arpi_gem_builder/base_http_file.rb",

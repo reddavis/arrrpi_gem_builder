@@ -32,6 +32,7 @@ The base of the wrappers are built with Jeweler[http://github.com/technicalpickl
 
 == TODO
 
+* Fix the horrible spacing issues with the generated Ruby codez
 * Write the Embedit API documentation so it actually works with the service
 * Write tests
 * Work with basic auth
