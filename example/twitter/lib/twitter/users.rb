@@ -8,7 +8,7 @@ module Twitter
         query = query_option.empty? ? {} : {:query => query_option}
         get "/users/show", query
       end
-      
+
     end
   end
 end

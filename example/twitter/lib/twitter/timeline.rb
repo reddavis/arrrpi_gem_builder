@@ -8,13 +8,12 @@ module Twitter
         query = query_option.empty? ? {} : {:query => query_option}
         get "/1/statuses/public_timeline", query
       end
-      
         
       def user_timeline(query_option = {})
         query = query_option.empty? ? {} : {:query => query_option}
         get "/1/statuses/user_timeline", query
       end
-      
+
     end
   end
 end
