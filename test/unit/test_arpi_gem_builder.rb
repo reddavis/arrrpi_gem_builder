@@ -54,20 +54,18 @@ class TestArpiGemBuilder < Test::Unit::TestCase
   context "Generation" do
     setup do
       html = fixture("embedit_api.html")
-
-      @dir = File.expand_path(File.dirname(__FILE__) + "/test_data")
       @builder = ArpiGemBuilder::Generator.new(html)
-      @builder.generate(@dir)
+      @builder.generate(GENERATION_DIR)
     end
 
     should "create a directory called embedit" do
-      assert File.directory?("#{@dir}/embedit")
+      assert File.directory?("#{GENERATION_DIR}/embedit")
     end
 
     context "Using the generated gem" do
       setup do
         # Require the generated lib
-        require "#{@dir}/embedit/lib/embedit"
+        require "#{GENERATION_DIR}/embedit/lib/embedit"
       end
 
       context "Basic GET" do

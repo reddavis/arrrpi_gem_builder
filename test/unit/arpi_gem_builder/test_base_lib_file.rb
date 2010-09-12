@@ -8,17 +8,17 @@ class TestBaseLibFile < Test::Unit::TestCase
 
     context "File Generation" do
       should "generate a file" do
-        @base_lib.generate(generated_file_path, "test")
+        @base_lib.generate(GENERATION_DIR, "test")
 
-        assert File.exists?(generated_file_path + "/test.rb")
+        assert File.exists?(GENERATION_DIR + "/test.rb")
       end
 
       context "Requiring resources" do
         setup do
           resources = ArpiGemBuilder::HTTPResourceFile.extract_and_build(html, "Arrrpi")
           @base_lib.resources = resources
-          @base_lib.generate(generated_file_path, "test")
-          @file = File.read(generated_file_path + "/test.rb")
+          @base_lib.generate(GENERATION_DIR, "test")
+          @file = File.read(GENERATION_DIR + "/test.rb")
         end
 
         should "require the resource files" do
@@ -36,9 +36,5 @@ class TestBaseLibFile < Test::Unit::TestCase
 
   def resource_html
     @resource_html ||= Nokogiri::HTML.parse(fixture("embedit_api.html")).css("div[name=resource]").to_s
-  end
-
-  def generated_file_path
-    File.expand_path(File.dirname(__FILE__) + "/../test_data")
   end
 end
