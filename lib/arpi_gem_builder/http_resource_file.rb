@@ -12,6 +12,7 @@ module ArpiGemBuilder
     end
 
     class NoName < StandardError; end;
+    class NoFormat < StandardError; end;
 
     attr_reader :gem_name, :methods
 
@@ -33,6 +34,15 @@ module ArpiGemBuilder
       @name ||= begin
         x = Nokogiri::HTML.parse(@html).css("div[name=resource] label.label").first
         x.nil? ? (raise NoName) : x.text.downcase
+      end
+    end
+
+    # If there are multiple formats, we only take note of the first one.
+    # Reason being that we are only building a scaffold
+    def api_format
+      @api_format ||= begin
+        x = Nokogiri::HTML.parse(@html).css("div[name=resource] span.output").first
+        x.nil? ? (raise NoFormat) : x.text.downcase.split(",").map {|x| x.strip }.first
       end
     end
 

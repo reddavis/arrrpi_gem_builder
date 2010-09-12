@@ -9,6 +9,8 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'arpi_gem_builder'
 
+GENERATION_DIR = File.expand_path(File.dirname(__FILE__) + "/test_data")
+
 class Test::Unit::TestCase
   def fixture(file_name)
     File.read(File.expand_path(File.dirname(__FILE__) + "/fixtures/#{file_name}"))

@@ -1,7 +1,9 @@
 module <%= @gem_name %>
   class <%= name.capitalize %> < BaseHTTP
+    format <%= ":#{api_format}" %>
+
     class << self
-      <% @methods.each do |method| %>
+      <% methods.each do |method| %>
         <%= method.ruby %>
       <% end %>
     end

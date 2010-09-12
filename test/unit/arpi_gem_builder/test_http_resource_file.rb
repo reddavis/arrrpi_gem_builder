@@ -4,7 +4,7 @@ class TestHTTPResourceFile < Test::Unit::TestCase
   context "Class Methods" do
     context "Extracting resources and building objects" do
       should "return 1 HTTPResourceFile object" do
-        x = ArpiGemBuilder::HTTPResourceFile.extract_and_build(html, generated_file_path)
+        x = ArpiGemBuilder::HTTPResourceFile.extract_and_build(html, GENERATION_DIR)
 
         assert_equal 1, x.size
         assert_kind_of ArpiGemBuilder::HTTPResourceFile, x.first
@@ -64,8 +64,30 @@ class TestHTTPResourceFile < Test::Unit::TestCase
 
     context "Generating a file" do
       should "generate a file" do
-        @resource.generate(generated_file_path)
-        assert File.exists?(generated_file_path + "/#{@resource.file_name}.rb")
+        @resource.generate(GENERATION_DIR)
+        assert File.exists?(GENERATION_DIR + "/#{@resource.file_name}.rb")
+      end
+    end
+
+    context "Format" do
+      context "One format specified" do
+        should "be json" do
+          assert_equal "json", @resource.api_format
+        end
+      end
+
+      context "Multiple formats" do
+        should "choose the first format" do
+          builder = ArpiGemBuilder::HTTPResourceFile.new("Embedit", fixture("multiple_api_format.html"))
+          assert_equal "xml", builder.api_format
+        end
+      end
+
+      context "No Format" do
+        should "raise NoFormat" do
+          builder = ArpiGemBuilder::HTTPResourceFile.new("Embedit", "")
+          assert_raise(ArpiGemBuilder::HTTPResourceFile::NoFormat) { builder.api_format }
+        end
       end
     end
   end
@@ -77,10 +99,11 @@ class TestHTTPResourceFile < Test::Unit::TestCase
   end
 
   def resource_html
-    @resource_html ||= Nokogiri::HTML.parse(fixture("embedit_api.html")).css("div[name=resource]").to_s
+    Nokogiri::HTML.parse(fixture("embedit_api.html")).css("div[name=resource]").to_s
   end
 
-  def generated_file_path
-    File.expand_path(File.dirname(__FILE__) + "/../test_data")
+  def resource_html_from(fixture_html)
+    Nokogiri::HTML.parse(fixture_html).css("div[name=resource]").to_s
   end
+
 end
