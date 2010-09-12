@@ -9,7 +9,7 @@ At the moment everything is very experiment. For the time being the most up to d
 == Example
 
   # Grab the HTML
-  html = File.read("embedit_api.html")
+  html = File.read("twitter_api.html")
 
   # Where we want to write our wrapper to
   gem_dir = "gem/file"
@@ -17,18 +17,22 @@ At the moment everything is very experiment. For the time being the most up to d
   # Build the gem
   ArpiGemBuilder::Generator.new(html).generate(gem_dir)
 
-  # Lets use our new wrapper...
-  require "gem/file/embedit/lib/embedit"
+Lets build and install our gem (run rake -T for more tasks)
 
-  Embedit::Urls.get_embed_code("http://www.youtube.com/watch?v=_OBlgSz8sSM")
+  cd path/to/lib
+  rake build
+  rake install
+
+Time to use it
+
+  require "rubygems"
+  require "twitter"
+
+  Twitter::Timeline.user_timeline(:screen_name => "reddavis")
     #=> some JSON
 
-The base of the wrappers are built with Jeweler[http://github.com/technicalpickles/jeweler] so you can cd into the base directory and run
-
-  rake gem build
-  rake gem install
-  rake release
-  etc... run rake -T for a full list
+  Twitter::Users.show(:screen_name => "reddavis")
+    #=> some JSON
 
 == TODO
 
