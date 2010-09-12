@@ -32,14 +32,7 @@ The base of the wrappers are built with Jeweler[http://github.com/technicalpickl
 
 == TODO
 
-* Fix the horrible spacing issues with the generated Ruby codez
-* Set the format that is specified (JSON/XML)
-* Write the Embedit API documentation so it actually works with the service
-* Write tests
-* Work with basic auth
-* CLI interface
-* Let user specify HTTP lib
-* Let user specify test framework
+http://github.com/reddavis/arrrpi_gem_builder/issues
 
 == Note on Patches/Pull Requests
 
