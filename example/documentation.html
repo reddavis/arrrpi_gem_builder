@@ -1,30 +1,44 @@
 <div name="service">
-  <p>Description of the <span class="label">Embedit</span> service, version <span class="version">0.0.1</span></p>
-
   <div name="meta-info">
-    <div name="service_name">Embedit</div>
+    <div name="service_name">Twitter</div>
     <div name="version">0.0.1</div>
     <div name="created_at">1/4/1990</div>
     <div name="updated_at">5/5/2010</div>
-    <div name="author">Red Davis</div>
-    <div name="base_url">http://embedit.me</div>
+    <div name="author">Twitter</div>
+    <div name="base_url">http://twitter.com</div>
   </div>
 
+  <!-- http://dev.twitter.com/doc/get/users/show -->
   <div name="resource">
-    <label class="label">Urls</label>
+    <label class="label">Users</label>
 
     <div name="operation">
-      <p>
-         The operation <label class="label">get_embed_code</label> is invoked using the method <span class="method">GET</span> at <code class="address">/urls/embed</code>, with the <span class="input">url</span> of the media.
-      </p>
+      <p>The operation <label class="label">show</label> is invoked using the method <span class="method">GET</span> at <code class="address">/users/show</code>.</p>
 
-      <p>
-        The operation <span class='authentication'>does not</span> require any authentication.
-      </p>
+      <p><span class="input">screen_name</span>: The screen name of the user for whom to return results for. Helpful for disambiguating when a valid screen name is also a user ID.</p>
 
-      <p>
-        It returns the embed details in <span class="output">JSON</span> document.
-      </p>
+      <p><span class="input">user_id</span>: The ID of the user for whom to return results for. Helpful for disambiguating when a valid user ID is also a valid screen name.</p>
+
+      <p>The operation <span class='authentication'>does not</span> require any authentication.</p>
+
+      <p>It returns the data in <span class="output">JSON</span>.</p>
+    </div>
+  </div>
+
+  <!-- http://dev.twitter.com/doc/get/statuses/public_timeline -->
+  <div name="resource">
+    <label class="label">Timeline</label>
+
+    <div name="operation">
+      <p>The operation <label class="label">public_timeline</label> is invoked using the method <span class="method">GET</span> at <code class="address">/1/statuses/public_timeline</code>.</p>
+
+      <p><span class="input">trim_user</span>: When set to either true, t or 1, each tweet returned in a timeline will include a user object including only the status authors numerical ID. Omit this parameter to receive the complete user object.</p>
+
+      <p><span class="input">include_entities</span>: When set to either true, t or 1, each tweet will include a node called "entities,". This node offers a variety of metadata about the tweet in a discreet structure, including: user_mentions, urls, and hashtags. While entities are opt-in on timelines at present, they will be made a default component of output in the future. See Tweet Entities for more detail on entities.</p>
+
+      <p>The operation <span class='authentication'>does not</span> require any authentication.</p>
+
+      <p>It returns the embed details in <span class="output">JSON, XML, RSS, ATOM</span> document.</p>
     </div>
   </div>
 </div>
