@@ -42,7 +42,7 @@
 # => "html!"
 #
 require "nokogiri"
-require "erb"
+require "erubis"
 require "FileUtils" unless defined?(FileUtils)
 
 $:.unshift(File.expand_path(File.dirname(__FILE__)))

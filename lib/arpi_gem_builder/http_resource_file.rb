@@ -22,7 +22,7 @@ module ArpiGemBuilder
     end
 
     def generate(generate_path)
-      erb = ERB.new(File.read(base_template_path))
+      erb = Erubis::Eruby.new(File.read(base_template_path))
 
       File.open("#{generate_path}/#{file_name}.rb", "w+") do |file|
         file.write(erb.result(binding))

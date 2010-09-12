@@ -11,7 +11,7 @@ module ArpiGemBuilder
 
     def generate(generate_path, file_name)
       @file_name = file_name
-      erb = ERB.new(File.read(base_template_path))
+      erb = Erubis::Eruby.new(File.read(base_template_path))
 
       File.open("#{generate_path}/#{file_name}.rb", "w+") do |file|
         file.write(erb.result(binding))
