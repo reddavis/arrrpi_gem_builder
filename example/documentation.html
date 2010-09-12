@@ -8,10 +8,10 @@
     <div name="base_url">http://twitter.com</div>
   </div>
 
-  <!-- http://dev.twitter.com/doc/get/users/show -->
   <div name="resource">
     <label class="label">Users</label>
 
+    <!-- http://dev.twitter.com/doc/get/users/show -->
     <div name="operation">
       <p>The operation <label class="label">show</label> is invoked using the method <span class="method">GET</span> at <code class="address">/users/show</code>.</p>
 
@@ -25,16 +25,43 @@
     </div>
   </div>
 
-  <!-- http://dev.twitter.com/doc/get/statuses/public_timeline -->
   <div name="resource">
     <label class="label">Timeline</label>
 
+    <!-- http://dev.twitter.com/doc/get/statuses/public_timeline -->
     <div name="operation">
       <p>The operation <label class="label">public_timeline</label> is invoked using the method <span class="method">GET</span> at <code class="address">/1/statuses/public_timeline</code>.</p>
 
       <p><span class="input">trim_user</span>: When set to either true, t or 1, each tweet returned in a timeline will include a user object including only the status authors numerical ID. Omit this parameter to receive the complete user object.</p>
 
       <p><span class="input">include_entities</span>: When set to either true, t or 1, each tweet will include a node called "entities,". This node offers a variety of metadata about the tweet in a discreet structure, including: user_mentions, urls, and hashtags. While entities are opt-in on timelines at present, they will be made a default component of output in the future. See Tweet Entities for more detail on entities.</p>
+
+      <p>The operation <span class='authentication'>does not</span> require any authentication.</p>
+
+      <p>It returns the embed details in <span class="output">JSON, XML, RSS, ATOM</span> document.</p>
+    </div>
+
+    <!-- http://dev.twitter.com/doc/get/statuses/user_timeline -->
+    <div name="operation">
+      <p>The operation <label class="label">user_timeline</label> is invoked using the method <span class="method">GET</span> at <code class="address">/1/statuses/user_timeline</code>.</p>
+
+      <p><span class="input">screen_name</span>: The screen name of the user for whom to return results for. Helpful for disambiguating when a valid screen name is also a user ID.</p>
+
+      <p><span class="input">user_id</span>: The ID of the user for whom to return results for. Helpful for disambiguating when a valid user ID is also a valid screen name.</p>
+
+      <p><span class="input">since_id</span>: Returns results with an ID greater than (that is, more recent than) the specified ID. There are limits to the number of Tweets which can be accessed through the API. If the limit of Tweets has occured since the since_id, the since_id will be forced to the oldest ID available.</p>
+
+      <p><span class="input">max_id</span>: Returns results with an ID less than (that is, older than) or equal to the specified ID.</p>
+
+      <p><span class="input">count</span>: Specifies the number of records to retrieve. Must be less than or equal to 200.</p>
+
+      <p><span class="input">page</span>: Specifies the page of results to retrieve.</p>
+
+      <p><span class="input">trim_user</span>: When set to either true, t or 1, each tweet returned in a timeline will include a user object including only the status authors numerical ID. Omit this parameter to receive the complete user object.</p>
+
+      <p><span class="input">include_entities</span>: When set to either true, t or 1, each tweet will include a node called "entities,". This node offers a variety of metadata about the tweet in a discreet structure, including: user_mentions, urls, and hashtags. While entities are opt-in on timelines at present, they will be made a default component of output in the future. See Tweet Entities for more detail on entities.</p>
+
+      <p><span class="input">include_rts</span>: When set to either true, t or 1,the timeline will contain native retweets (if they exist) in addition to the standard stream of tweets. The output format of retweeted tweets is identical to the representation you see in home_timeline. Note: If you're using the trim_user parameter in conjunction with include_rts, the retweets will still contain a full user object.</p>
 
       <p>The operation <span class='authentication'>does not</span> require any authentication.</p>
 
