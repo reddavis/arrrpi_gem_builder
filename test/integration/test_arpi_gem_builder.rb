@@ -1,4 +1,5 @@
 require 'helper'
+require 'open3'
 
 class TestArpiGemBuilder < Test::Unit::TestCase
   include WebMock

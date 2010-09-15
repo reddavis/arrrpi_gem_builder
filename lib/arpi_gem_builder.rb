@@ -41,6 +41,10 @@ module ArpiGemBuilder
       base_lib.generate(root_file_path, base_file_name)
 
       # Write tests
+      FileUtils.mkdir_p(test_file_path)
+      resources.each do |resource|
+        TestFile.new(resource).generate(test_file_path)
+      end
     end
 
     def service_name
@@ -71,6 +75,10 @@ module ArpiGemBuilder
 
     def resources_file_path
       "#{@save_to}/#{service_name}/lib/#{base_file_name}"
+    end
+
+    def test_file_path
+      "#{@save_to}/#{service_name}/test/#{service_name}"
     end
 
     def base_file_name

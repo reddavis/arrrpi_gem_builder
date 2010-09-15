@@ -4,9 +4,10 @@ require 'webmock/test_unit'
 class <%= class_name %> < Test::Unit::TestCase
   include WebMock
 
-  <% @resource.api_methods.each do |method| %>
-    context "<%= method.http_method%> <%= method.name %>" do
-      should "do something"
-    end
-  <% end %>
+<% @resource.api_methods.each do |method| %>
+  context "<%= method.http_method%> <%= method.name %>" do
+    should "do something"
+  end
+
+<% end %>
 end
