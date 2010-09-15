@@ -38,7 +38,7 @@ class TestHTTPResourceFile < Test::Unit::TestCase
 
     context "Methods" do
       should "have 1 of them" do
-        assert_equal 1, @resource.methods.size
+        assert_equal 1, @resource.api_methods.size
       end
     end
 
@@ -105,5 +105,4 @@ class TestHTTPResourceFile < Test::Unit::TestCase
   def resource_html_from(fixture_html)
     Nokogiri::HTML.parse(fixture_html).css("div[name=resource]").to_s
   end
-
 end

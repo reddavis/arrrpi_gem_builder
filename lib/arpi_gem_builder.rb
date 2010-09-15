@@ -6,6 +6,8 @@ $:.unshift(File.expand_path(File.dirname(__FILE__)))
 require "arpi_gem_builder/base_lib_file"
 require "arpi_gem_builder/base_http_file"
 require "arpi_gem_builder/http_resource_file"
+require "arpi_gem_builder/test_file"
+require "arpi_gem_builder/core_ext/string"
 
 module ArpiGemBuilder
   class Generator

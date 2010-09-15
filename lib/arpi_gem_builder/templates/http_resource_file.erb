@@ -3,7 +3,7 @@ module <%= @gem_name %>
     format <%= ":#{api_format}" %>
 
     class << self
-      <% methods.each do |method| %>
+      <% api_methods.each do |method| %>
         <%= method.ruby %>
       <% end %>
 

@@ -15,12 +15,12 @@ module ArpiGemBuilder
     class NoName < StandardError; end;
     class NoFormat < StandardError; end;
 
-    attr_reader :gem_name, :methods
+    attr_reader :gem_name, :api_methods
 
     def initialize(gem_name, html)
       @gem_name = gem_name
       @html = html
-      @methods = MethodBuilder.extract(html)
+      @api_methods = MethodBuilder.extract(html)
     end
 
     def generate(generate_path)
