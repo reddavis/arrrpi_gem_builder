@@ -61,21 +61,5 @@ class TestArpiGemBuilder < Test::Unit::TestCase
     should "create a directory called embedit" do
       assert File.directory?("#{GENERATION_DIR}/embedit")
     end
-
-    context "Using the generated gem" do
-      setup do
-        # Require the generated lib
-        require "#{GENERATION_DIR}/embedit/lib/embedit"
-      end
-
-      context "Basic GET" do
-        should "GET /urls/embed" do
-          stub_request(:get, "http://embedit.me/urls/embed")
-          Embedit::Urls.get_embed_code
-
-          assert_requested :get, "http://embedit.me/urls/embed"
-        end
-      end
-    end
   end
 end

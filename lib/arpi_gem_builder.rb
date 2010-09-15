@@ -10,6 +10,7 @@ require "arpi_gem_builder/http_resource_file"
 module ArpiGemBuilder
   class Generator
 
+    # Errors
     class NoServiceName < StandardError; end;
     class NoBaseURL     < StandardError; end;
 
@@ -36,7 +37,7 @@ module ArpiGemBuilder
       base_lib.resources = resources
       base_lib.generate(root_file_path, base_file_name)
 
-      #write_tests
+      # Write tests
     end
 
     def service_name
