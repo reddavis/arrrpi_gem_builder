@@ -1,6 +1,7 @@
 module ArpiGemBuilder
   class MethodBuilder
 
+    # Errors
     class NoMethodName < StandardError; end;
     class NoHTTPMethod < StandardError; end;
     class NoAddress    < StandardError; end;
