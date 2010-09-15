@@ -11,6 +11,7 @@ module ArpiGemBuilder
       end
     end
 
+    # Errors
     class NoName < StandardError; end;
     class NoFormat < StandardError; end;
 
