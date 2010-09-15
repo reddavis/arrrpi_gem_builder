@@ -1,5 +1,4 @@
 require 'helper'
-include ArpiGemBuilder
 
 class TestString < Test::Unit::TestCase
   context "#camelize" do

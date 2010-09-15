@@ -1,0 +1,1 @@
+require "arpi_gem_builder/modules/template_path"

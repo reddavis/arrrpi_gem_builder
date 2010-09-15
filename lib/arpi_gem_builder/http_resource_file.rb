@@ -2,6 +2,7 @@ require "arpi_gem_builder/method_builder"
 
 module ArpiGemBuilder
   class HTTPResourceFile
+    include TemplatePath
 
     class << self
       def extract_and_build(html, gem_name)
@@ -24,7 +25,8 @@ module ArpiGemBuilder
     end
 
     def generate(generate_path)
-      erb = Erubis::Eruby.new(File.read(base_template_path))
+      file_data = File.read(template_path("http_resource_file"))
+      erb = Erubis::Eruby.new(file_data)
 
       File.open("#{generate_path}/#{file_name}.rb", "w+") do |file|
         file.write(erb.result(binding))
@@ -53,17 +55,9 @@ module ArpiGemBuilder
       end
     end
 
+    # cool_images => CoolImages
     def class_name
-      @class_name ||= begin
-        # cool_images => CoolImages
-        name.split(/[_|\s+]/).map {|x| x.capitalize }.join
-      end
-    end
-
-    private
-
-    def base_template_path
-      File.expand_path(File.dirname(__FILE__) + "/templates/http_resource_file.erb")
+      @class_name ||= name.camelize
     end
 
   end
